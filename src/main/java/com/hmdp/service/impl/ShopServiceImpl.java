@@ -154,7 +154,7 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
         return shop;
     }
 
-    //互斥锁解决缓存穿透
+    //缓存null值解决缓存穿透
     public Shop queryWithPassThrough(Long id){
         String key=CACHE_SHOP_KEY + id;
         //从redis查询商铺缓存
@@ -207,12 +207,13 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
         //写入redis
         stringRedisTemplate.opsForValue().set(CACHE_SHOP_KEY+id,JSONUtil.toJsonStr(redisData));
     }
+
     @Override
     @Transactional
     public Result update(Shop shop) {
         Long id=shop.getId();
         if(id==null){
-            return Result.fail("店铺ia不能为空");
+            return Result.fail("店铺id不能为空");
         }
         //更新数据库
         update(shop);

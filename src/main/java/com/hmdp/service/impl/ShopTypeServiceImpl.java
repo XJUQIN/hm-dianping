@@ -6,13 +6,13 @@ import com.hmdp.entity.ShopType;
 import com.hmdp.mapper.ShopTypeMapper;
 import com.hmdp.service.IShopTypeService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.apache.ibatis.annotations.Select;
+//import org.apache.ibatis.annotations.Select;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
-import java.util.HashSet;
+//import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -56,7 +56,7 @@ public class ShopTypeServiceImpl extends ServiceImpl<ShopTypeMapper, ShopType> i
             return Result.fail("商铺种类不存在");
         }
         //数据库存在，写入redis
-       Set<ShopType> shopType = new HashSet<>(list);
+       //Set<ShopType> shopType = new HashSet<>(list);
         for (ShopType type : list) {
             stringRedisTemplate.opsForZSet().add(key,JSONUtil.toJsonStr(type),type.getSort());
         }
