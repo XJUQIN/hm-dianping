@@ -11,6 +11,7 @@ import com.hmdp.service.IUserInfoService;
 import com.hmdp.service.IUserService;
 import com.hmdp.utils.UserHolder;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.logging.log4j.util.PerformanceSensitive;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -101,5 +102,13 @@ public class UserController {
         return Result.ok(userDTO);
     }
 
+    @PostMapping("/sign")
+    public Result sign(){
+        return userService.sign();
+    }
 
+    @GetMapping("/sign/count")
+    public Result singCount(){
+        return userService.signCount();
+    }
 }
